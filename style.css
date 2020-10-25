@@ -3,8 +3,8 @@
 Dropdown date menu is still on focus after selection and mouse moving away.
 
 */
-
 @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
 
 * {
     box-sizing: border-box;
@@ -124,7 +124,6 @@ body {
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     color: rgb(123, 123, 123);
     text-align: center;
-    
 }
 
 input[type=submit]:focus,
@@ -156,6 +155,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 
 input[type=number] {
+    -webkit-appearance: none;
     -moz-appearance: textfield;
     outline: none;
 }
@@ -174,7 +174,7 @@ input:focus {
     margin: auto 0;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color:rgb(75, 75, 75);
 }
 
@@ -191,6 +191,7 @@ input:focus {
     border: 1px solid rgb(238, 238, 238);
     color:rgb(60, 60, 60);
     padding-bottom: 0.6rem;
+    line-height: 100%;
 }
 
 .score-form input::placeholder,

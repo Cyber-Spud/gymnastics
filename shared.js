@@ -3,6 +3,9 @@
 //  Username
 //  More data on dropdown menu entry name (Total)
 //  A clear localStorage option
+// numerical input for iOS
+
+// Bug: If date entered, form is not needing to be validated on safari for iOS
 
 const ctx1 = document.getElementById("chart__exercises").getContext("2d");
 const ctx2 = document.getElementById("chart__domain").getContext("2d");
