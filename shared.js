@@ -128,6 +128,8 @@ for (domain in beginnerProfileTest) {
   beginnerProfileTest[domain].forEach(x => beginnerProfileTestArray.push(x))
 }
 
+// Adds input container + children to the DOM using data from the selected profile test
+
 const inputContainer = document.getElementsByClassName("input-container")
 const inputContainerDataEntry = document.getElementsByClassName("input-container__data-entry");
 const pointsParagraph = document.getElementsByClassName("points");
@@ -144,9 +146,13 @@ for (let l = 0; l < inputContainer.length; l++) {
   input.id = beginnerProfileTestArray[l].id;
   input.min = 0
   input.max = beginnerProfileTestArray[l].scoreMax;
+  input.minLength = 1;
+  input.maxLength = 2;
   input.placeholder = beginnerProfileTestArray[l].scoreMax;
-  input.required = "";
-  input.type = "number";
+  input.required = "required";
+  input.inputMode = "numeric"
+  input.type = "text";
+  // input.pattern="[0-9]*"
 
   input.addEventListener('change', () => {
     const score = input.valueAsNumber;
@@ -167,9 +173,6 @@ for (let l = 0; l < inputContainer.length; l++) {
   inputContainerDataEntry[l].append(input);
   inputContainerDataEntry[l].append(p);
   inputContainerDataEntry[l].append(pPoints);
-
-  
-
 }
 
 // Calculates label font size and layout with responsive functionality
@@ -230,7 +233,7 @@ window.addEventListener("resize", () => {
   myChartDomain.update();
 });
 
-// This creates select elements to add to the DOM
+// This creates select elements for the graph dropdown menu to add to the DOM
 
 let dateSelect = [];
 dateSelect[0] = document.getElementById("test-date-selector__first");
@@ -245,7 +248,7 @@ for (let j = 0; j < localStorage.inputIndex; j++) {
   }
 }
 
-// Handler to change graph after dropdown menu change
+// Handler to change graph visuals after dropdown menu change
 const graphChange0 = () => graphChangeHandler(0);
 const graphChange1 = () => graphChangeHandler(1);
 
