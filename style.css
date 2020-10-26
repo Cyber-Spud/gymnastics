@@ -179,8 +179,7 @@ input:focus {
     text-align: center;
     margin: auto 0;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-weight: 500;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color:rgb(75, 75, 75);
 }
 
@@ -206,11 +205,20 @@ input:focus {
 
 .points {
     position: absolute;
-    bottom: -1.5rem;
-    left: 0.6rem;
+    bottom: -1.8rem;
+    left: 1.1rem;
     font-family: 'Abel', sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color:rgb(75, 75, 75);
+    text-align: right;
+    width: 1rem;
+}
+
+.points-icon__container {
+    position: absolute;
+    color:rgb(75, 75, 75);
+    bottom: -0.8rem;
+    right: 1.4rem;
 }
 
 .input-container__final {
@@ -243,7 +251,7 @@ input:focus {
     font-size: 1.25rem;
     width: 100%;
     padding-left: 25px;
-    padding-top: 5px;
+    padding-top: 8px;
 }
 
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
@@ -261,6 +269,7 @@ input:focus {
     /* padding: 8px 5px 5px 15px; */
     text-align: center;
     border: none;
+    padding-top: 8px;
 }
 
 #input-container-half__submit:focus {
