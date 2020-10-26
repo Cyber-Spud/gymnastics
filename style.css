@@ -33,6 +33,7 @@ body {
     background: rgb(185, 185, 255);
     width: 100%;
     z-index: 5;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .main-wrapper {
@@ -406,7 +407,8 @@ select:focus ~ #select-icon__first svg.icon {
     height: 6rem;
     grid-area: footer;
     background: black;
-    bottom: 0;
+
+    margin-top: 3rem;
 }
 
 @media (min-width: 34rem) {
