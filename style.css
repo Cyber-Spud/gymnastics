@@ -13,6 +13,7 @@ Dropdown date menu is still on focus after selection and mouse moving away.
 html {
     height: 100%;
     width: 100%;
+    padding: env(safe-area-inset);
 }
 
 body {
@@ -156,6 +157,9 @@ input[type=date]::-webkit-outer-spin-button {
 
 input[type=date]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
+    padding: 0;
+    padding-right: 10px;
+    background-color: #ffffff00;
 }
 
 input[type=number],
@@ -164,6 +168,7 @@ input[type=text] {
     -moz-appearance: textfield;
     outline: none;
     padding: 0;
+    
 }
 
 input:invalid {
@@ -217,8 +222,8 @@ input:focus {
 .points-icon__container {
     position: absolute;
     color:rgb(75, 75, 75);
-    bottom: -0.8rem;
-    right: 1.4rem;
+    bottom: -0.925rem;
+    right: 1.2rem;
 }
 
 .input-container__final {
@@ -247,11 +252,12 @@ input:focus {
 }
 
 #input-container-half__date {
-    height: 2.5rem;
+    height: 2rem;
     font-size: 1.25rem;
     width: 100%;
     padding-left: 25px;
-    padding-top: 8px;
+    padding-bottom: 0px;
+    line-height: normal;
 }
 
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
