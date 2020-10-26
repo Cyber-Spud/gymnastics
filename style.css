@@ -154,10 +154,12 @@ input[type=date]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
 }
 
-input[type=number] {
+input[type=number],
+input[type=text] {
     -webkit-appearance: none;
     -moz-appearance: textfield;
     outline: none;
+    padding: 0;
 }
 
 input:invalid {
@@ -182,7 +184,7 @@ input:focus {
     border: none;
     width: 4.5rem;
     height: 3.5rem;
-    margin: auto auto 0.6rem;
+    margin: 0 0 0.6rem;
     text-align: center;
     font-size: 2rem;
     font-family: 'Abel', sans-serif;
