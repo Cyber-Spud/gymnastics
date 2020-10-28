@@ -106,7 +106,6 @@ body {
     background: linear-gradient(0deg, rgba(150,255,150,0.3) 0%, rgba(150,255,150,0.4) 39%, rgba(150,255,150,0.55) 100%); 
     border: 1px solid rgb(255, 255, 255);
     border-radius: 1rem;
-    /* box-shadow: 3px 3px 2px rgba(128, 128, 128, 0.308); */
     width: 5.25rem;
     transition: box-shadow 0.2s, transform 0.2s;
     align-items: center;
@@ -230,9 +229,9 @@ input:focus {
 .input-container__final {
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    height: 100%;
-    padding: 0.5rem;
+    justify-content: space-evenly;
+    min-height: 11rem;
+
     /* background: linear-gradient(0deg, rgba(150,255,150,0.3) 0%, rgba(150,255,150,0.4) 39%, rgba(150,255,150,0.55) 100%);  */
     /* border: 1px solid rgb(238, 238, 238); */
     border-radius: 1rem;
@@ -240,6 +239,44 @@ input:focus {
     min-width: 5.5rem;
     grid-column-end: span 2;
     transition: box-shadow 0.2s, transform 0.2s;
+}
+
+#input-container-half__points {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 1rem;
+    margin-top: 1.1rem;
+    background: linear-gradient(0deg, rgba(150,255,150,0.3) 0%, rgba(150,255,150,0.4) 39%, rgba(150,255,150,0.55) 100%); 
+
+
+}
+
+#input-container-half__points > * {
+    display: inline-block;
+    
+}
+
+#input-container-half__points > svg {
+    height: 100%;
+    margin-left: 5px;
+    padding: 1px;
+    color:rgb(75, 75, 75);
+    fill: white;
+
+}
+
+#input-container-half__points > p {
+    margin: 0;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+    font-family: 'Abel', sans-serif;
+    font-size: 1.2rem;
+    color:rgb(75, 75, 75);
+
 }
 
 .input-container:hover,
@@ -259,6 +296,7 @@ input:focus {
     padding-left: 25px;
     padding-bottom: 0px;
     line-height: normal;
+    margin: 0;
 }
 
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
@@ -277,6 +315,7 @@ input:focus {
     text-align: center;
     border: none;
     padding-top: 8px;
+    margin: 0;
 }
 
 #input-container-half__submit:focus {
@@ -293,6 +332,11 @@ input:focus {
     width: 100%;
     position: relative;
   }
+
+#dropdown-container__delete {
+    width: 3rem;
+    
+}
 
 select {
    width: 100%;
@@ -321,6 +365,28 @@ select {
 #test-date-selector__second {
     background-color: rgba(54, 162, 235, 0.2);
     border-bottom: 2px solid rgb(54, 162, 235);
+}
+
+#test-date-selector__delete {
+    background-color: rgb(253, 148, 148);
+    box-shadow: 0px 3px 2px rgba(128, 128, 128, 0.308);
+    border-bottom: none;
+    width: 100%;
+    border-radius: 5rem;
+    margin: 0.5rem;
+}
+
+#test-date-selector__delete ~ .select-icon {
+    padding: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    left: 4px;
+    top: 5px;
+    margin: 0.5rem;
+}
+
+#select-icon__delete svg {
+    color: white;
 }
 
 /* For IE <= 11 */
@@ -375,6 +441,13 @@ select:focus {
     color: white;
 }
 
+#test-date-selector__delete:hover,
+#test-date-selector__delete:focus {
+    background-color: white;
+    color: black;
+    box-shadow: none;
+}
+
 
 select:hover ~ .select-icon,
 select:focus ~ .select-icon {
@@ -392,6 +465,7 @@ select:focus ~ #select-icon__second {
     background-color: rgb(54, 162, 235);
 }
 
+
 select:hover ~ .select-icon svg.icon,
 select:focus ~ .select-icon svg.icon {
     color: white;
@@ -400,6 +474,11 @@ select:focus ~ .select-icon svg.icon {
 select:hover ~ #select-icon__first svg.icon,
 select:focus ~ #select-icon__first svg.icon {
     fill: rgb(255, 99, 132);
+}
+
+select:hover ~ #select-icon__delete svg.icon,
+select:focus ~ #select-icon__delete svg.icon {
+    color: rgb(253, 148, 148);
 }
 
 .footer {
@@ -424,11 +503,16 @@ select:focus ~ #select-icon__first svg.icon {
     }
 
     .dropdown-container {
-        width: 49%;
+        width: 45%;
     }
 
     select {
         border-radius: 1rem;
+    }
+
+    #test-date-selector__delete,
+    #test-date-selector__delete ~ .select-icon {
+        margin: 0;
     }
 }
 

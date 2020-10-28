@@ -12,6 +12,7 @@ const ctx2 = document.getElementById("chart__domain").getContext("2d");
 
 let nullData = new Array(13).fill(0, 0, 13);
 
+
 // Preset student scores for demo purposes
 let webInput = [];
 webInput[0] = [[3, 4, 5, 3, 2, 5, 4, 5, 3, 2, 3, 4, 5], ["2011-01-02"]];
@@ -128,11 +129,15 @@ for (domain in beginnerProfileTest) {
   beginnerProfileTest[domain].forEach(x => beginnerProfileTestArray.push(x))
 }
 
-// Adds input container + children to the DOM using data from the selected profile test
-
 const inputContainer = document.getElementsByClassName("input-container")
 const inputContainerDataEntry = document.getElementsByClassName("input-container__data-entry");
 const pointsParagraph = document.getElementsByClassName("points");
+
+
+
+
+
+// Adds input container + children to the DOM using data from the selected profile test
 
 for (let l = 0; l < inputContainer.length; l++) {
   let input = document.createElement('input');
@@ -157,19 +162,22 @@ for (let l = 0; l < inputContainer.length; l++) {
 
   input.addEventListener('change', () => {
     const score = parseInt(input.value);
-    console.log(score)
     let points = Math.floor(score / input.max * 10);
     if (points < 0) points = 0;
     else if (points > 10) points = 10;
     
     pointsParagraph[l].innerHTML = points;
     pointsParagraph[l].valueAsNumber = points;
+
+    totalScoreHandler(l);
+
   });
 
   svgDiv.className = "points-icon__container";
-  svgDiv.innerHTML = (`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>`);
+  svgDiv.innerHTML = (`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>`);
 
   pPoints.innerHTML = "0";
+  pPoints.valueAsNumber = 0;
   pPoints.className = "points";
 
   label.for = input.id;
@@ -181,6 +189,27 @@ for (let l = 0; l < inputContainer.length; l++) {
   inputContainerDataEntry[l].append(svgDiv);
   inputContainerDataEntry[l].append(pPoints);
 }
+
+
+// Calculates total score
+
+const totalScorePElement = document.getElementById("total-score");
+totalScorePElement.innerHTML = "0/130 [0%]"
+
+const totalScoreHandler = (index) => {
+  let totalScore = 0;  
+  for (let o = 0; o < inputContainer.length; o++) {
+    totalScore += pointsParagraph[o].valueAsNumber;
+  }
+  console.log("Total score = " + totalScore);
+
+  let totalScorePercent = parseInt(totalScore/130*100);
+  console.log(totalScorePercent)
+
+  totalScorePElement.innerHTML = totalScore+"/130 " + " [" + totalScorePercent + "%]";
+
+};
+
 
 // Calculates label font size and layout with responsive functionality
 
@@ -243,22 +272,33 @@ window.addEventListener("resize", () => {
 
 // This creates select elements for the graph dropdown menu to add to the DOM
 
-let dateSelect = [];
-dateSelect[0] = document.getElementById("test-date-selector__first");
-dateSelect[1] = document.getElementById("test-date-selector__second");
+  let dateSelect = [];
+  dateSelect[0] = document.getElementById("test-date-selector__first");
+  dateSelect[1] = document.getElementById("test-date-selector__second");
 
-for (let j = 0; j < localStorage.inputIndex; j++) {
-  for (let k = 0; k < dateSelect.length; k++) {
-    let menuOption = document.createElement("option");
-    menuOption.value = j;
-    menuOption.text = webInput[j][1];
-    dateSelect[k].add(menuOption);
+  for (let j = 0; j < localStorage.inputIndex; j++) {
+    for (let k = 0; k < dateSelect.length; k++) {
+      let menuOption = document.createElement("option");
+      menuOption.value = j;
+      menuOption.text = webInput[j][1];
+      dateSelect[k].add(menuOption);
+    }
   }
-}
 
+  let dateSelectDelete = document.getElementById("test-date-selector__delete");
+
+  for (let j = 3; j < localStorage.inputIndex; j++) {
+    for (let k = 0; k < 1; k++) {
+      let menuOption = document.createElement("option");
+      menuOption.value = j;
+      menuOption.text = webInput[j][1];
+      dateSelectDelete.add(menuOption);
+    }
+  }
 // Handler to change graph visuals after dropdown menu change
 const graphChange0 = () => graphChangeHandler(0);
 const graphChange1 = () => graphChangeHandler(1);
+
 
 const graphChangeHandler = (graphIndex) => {
   let dateIndexNum = dateSelect[graphIndex].value;
@@ -273,6 +313,15 @@ const graphChangeHandler = (graphIndex) => {
   myChartExercises.update();
   myChartDomain.update();
 };
+
+const deleteLocalStorage = () => {
+  let deleteIndexNum = dateSelectDelete.value;
+  alert(deleteIndexNum);
+  localStorage.removeItem(("date"+deleteIndexNum).toString());
+  localStorage.removeItem(("results"+deleteIndexNum).toString());
+  localStorage.inputIndex = (Number(localStorage.inputIndex)-1).toString()
+  location.reload()
+}
 
 // Converts user input of individual exercises into the exercise domains (Core Endurance, Flexibility, etc...)
 
@@ -434,3 +483,4 @@ let myChartDomain = new Chart(ctx2, {
 
 dateSelect[0].onchange = graphChange0;
 dateSelect[1].onchange = graphChange1;
+dateSelectDelete.onchange = deleteLocalStorage
