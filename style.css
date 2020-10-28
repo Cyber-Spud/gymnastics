@@ -374,6 +374,7 @@ select {
     width: 100%;
     border-radius: 5rem;
     margin: 0.5rem;
+    color: #ffffff00;
 }
 
 #test-date-selector__delete ~ .select-icon {
@@ -383,6 +384,9 @@ select {
     left: 4px;
     top: 5px;
     margin: 0.5rem;
+    /home/reece/programming/javascript/graphs/index.html
+/home/reece/programming/javascript/graphs/shared.js
+/home/reece/programming/javascript/graphs/style.css
 }
 
 #select-icon__delete svg {

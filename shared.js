@@ -316,7 +316,6 @@ const graphChangeHandler = (graphIndex) => {
 
 const deleteLocalStorage = () => {
   let deleteIndexNum = dateSelectDelete.value;
-  alert(deleteIndexNum);
   localStorage.removeItem(("date"+deleteIndexNum).toString());
   localStorage.removeItem(("results"+deleteIndexNum).toString());
   localStorage.inputIndex = (Number(localStorage.inputIndex)-1).toString()
