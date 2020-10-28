@@ -445,7 +445,6 @@ select:focus {
 #test-date-selector__delete:hover,
 #test-date-selector__delete:focus {
     background-color: white;
-    color: black;
     box-shadow: none;
 }
 
@@ -480,6 +479,10 @@ select:focus ~ #select-icon__first svg.icon {
 select:hover ~ #select-icon__delete svg.icon,
 select:focus ~ #select-icon__delete svg.icon {
     color: rgb(253, 148, 148);
+}
+
+.black-font {
+    color: black;
 }
 
 .footer {

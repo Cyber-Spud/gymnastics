@@ -292,6 +292,7 @@ window.addEventListener("resize", () => {
       let menuOption = document.createElement("option");
       menuOption.value = j;
       menuOption.text = webInput[j][1];
+      menuOption.className = "black-font";
       dateSelectDelete.add(menuOption);
     }
   }
