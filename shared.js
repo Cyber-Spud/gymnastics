@@ -287,15 +287,13 @@ window.addEventListener("resize", () => {
 
   let dateSelectDelete = document.getElementById("test-date-selector__delete");
 
-  for (let j = 3; j < localStorage.inputIndex; j++) {
-    for (let k = 0; k < 1; k++) {
+
       let menuOption = document.createElement("option");
-      menuOption.value = j;
-      menuOption.text = webInput[j][1];
+      menuOption.value = "";
+      menuOption.text = "Delete all stored data";
       menuOption.className = "black-font";
       dateSelectDelete.add(menuOption);
-    }
-  }
+ 
 // Handler to change graph visuals after dropdown menu change
 const graphChange0 = () => graphChangeHandler(0);
 const graphChange1 = () => graphChangeHandler(1);
@@ -316,10 +314,11 @@ const graphChangeHandler = (graphIndex) => {
 };
 
 const deleteLocalStorage = () => {
-  let deleteIndexNum = dateSelectDelete.value;
-  localStorage.removeItem(("date"+deleteIndexNum).toString());
-  localStorage.removeItem(("results"+deleteIndexNum).toString());
-  localStorage.inputIndex = (Number(localStorage.inputIndex)-1).toString()
+  // let deleteIndexNum = dateSelectDelete.value;
+  // localStorage.removeItem(("date"+deleteIndexNum).toString());
+  // localStorage.removeItem(("results"+deleteIndexNum).toString());
+  // localStorage.inputIndex = (Number(localStorage.inputIndex)-1).toString()
+  localStorage.clear()
   location.reload()
 }
 
