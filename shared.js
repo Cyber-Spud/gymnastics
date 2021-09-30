@@ -7,126 +7,50 @@
 
 // Bug: If date entered, form is not needing to be validated on safari for iOS
 
+// QUestion: Object pointers as string
+
 const ctx1 = document.getElementById("chart__exercises").getContext("2d");
 const ctx2 = document.getElementById("chart__domain").getContext("2d");
 
-let nullData = new Array(13).fill(0, 0, 13);
+const url = (new URLSearchParams(window.location.search).get('profile')).toString()
+let profile
+if (url == 'beginnerProfile1') profile = beginnerProfile1;
+else if (url == 'beginnerProfile2') profile = beginnerProfile2;
+else if (url == 'intermediateProfile1') profile = intermediateProfile1;
+else if (url == 'intermediateProfile2') profile = intermediateProfile2;
+else if (url == 'advancedProfile1') profile = advancedProfile1;
 
+let nullData = new Array(13).fill(0, 0, 13);
 
 // Preset student scores for demo purposes
 let webInput = [];
-webInput[0] = [[3, 4, 5, 3, 2, 5, 4, 5, 3, 2, 3, 4, 5], ["2011-01-02"]];
-webInput[1] = [[4, 5, 6, 7, 6, 5, 4, 3, 4, 5, 6, 7, 7], ["2015-05-15"]];
-webInput[2] = [[8, 8, 7, 7, 6, 6, 9, 9, 10, 10, 10, 10, 5], ["2018-03-22"]];
+webInput[0] = [[3, 4, 5, 3, 2, 5, 4, 5, 3, 2, 3, 4, 5], ["1997-01-02"]];
+webInput[1] = [[4, 5, 6, 7, 6, 5, 4, 3, 4, 5, 6, 7, 7], ["1998-05-15"]];
+webInput[2] = [[8, 8, 7, 7, 6, 6, 9, 9, 10, 10, 10, 10, 5], ["1999-03-22"]];
+
+webInput.forEach(array => {
+  console.log(array[0])
+  let percent = parseInt(array[0].reduce((a,b)=>a+b)/130*100)
+  array.push(percent)
+  console.log(array[2])
+});
 
 // Adds to webInput array from localStorage
 if (!localStorage.inputIndex) localStorage.setItem("inputIndex", 3);
 for (let i = 3; i < localStorage.inputIndex; i++) {
   let array = JSON.parse(localStorage["results" + i]).map((n) => parseInt(n));
   let date = localStorage["date" + i];
+  let percent = localStorage["percent"+i]
 
-  webInput[i] = [array, [date]];
+  webInput[i] = [array, [date], percent];
 }
-
-const beginnerProfileTest = {
-  coreEndurance: [
-    {
-      id: "dish-hold",
-      text: "Dish Hold",
-      scoreMeasure: "secs",
-      scoreMax: 100
-    },
-    {
-      id: "arch-hold",
-      text: "Arch Hold",
-      scoreMeasure: "secs",
-      scoreMax: 100
-    }
-  ],
-  coreStrength: [
-    {
-      id: "tucked-v-ups",
-      text: "Tucked V Ups",
-      scoreMeasure: "reps",
-      scoreMax: 20
-    },
-    {
-      id: "tucked-l-hang",
-      text: "Tucked L Hang",
-      scoreMeasure: "secs",
-      scoreMax: 60
-    },
-    {
-      id: "tucked-l-sit",
-      text: "Tucked L Sit",
-      scoreMeasure: "secs",
-      scoreMax: 60
-    }
-  ],
-  armStrength: [
-    {
-      id: "push-ups",
-      text: "Push Ups",
-      scoreMeasure: "reps",
-      scoreMax: 20
-    },
-    {
-      id: "chin-hang",
-      text: "Chin Hang",
-      scoreMeasure: "secs",
-      scoreMax: 60
-    }
-  ],
-  legStrength: [
-    {
-      id: "single-leg-squat-hold",
-      text: "Single Leg Squat Hold",
-      scoreMeasure: "secs L+R",
-      scoreMax: 60
-    },
-    {
-      id: "deck-squat",
-      text: "Deck Squat",
-      scoreMeasure: "reps",
-      scoreMax: 50
-    }
-  ],
-  handstand: [
-    {
-      id: "wall-handstand",
-      text: "Wall Handstand",
-      scoreMeasure: "secs",
-      scoreMax: 100
-    },
-    {
-      id: "headstand",
-      text: "Headstand",
-      scoreMeasure: "secs",
-      scoreMax: 60
-    }
-  ],
-  flexibility: [
-    {
-      id: "pike",
-      text: "Pike",
-      scoreMeasure: "cm",
-      scoreMax: 20
-    },
-    {
-      id: "shoulder-extention",
-      text: "Shoulder Extention",
-      scoreMeasure: "points",
-      scoreMax: 10
-    }
-  ],
-};
 
 // Creates array out of beginnerProfileTest object
 
 let beginnerProfileTestArray = [];
 
-for (domain in beginnerProfileTest) {
-  beginnerProfileTest[domain].forEach(x => beginnerProfileTestArray.push(x))
+for (domain in profile) {
+  profile[domain].forEach(x => beginnerProfileTestArray.push(x))
 }
 
 const inputContainer = document.getElementsByClassName("input-container")
@@ -183,6 +107,9 @@ for (let l = 0; l < inputContainer.length; l++) {
   label.for = input.id;
   label.innerHTML = beginnerProfileTestArray[l].text;
 
+  if (input.id.length > 20) label.setAttribute('id', 'small-font');
+
+
   inputContainer[l].prepend(label);
   inputContainerDataEntry[l].append(input);
   inputContainerDataEntry[l].append(p);
@@ -194,7 +121,7 @@ for (let l = 0; l < inputContainer.length; l++) {
 // Calculates total score
 
 const totalScorePElement = document.getElementById("total-score");
-totalScorePElement.innerHTML = "0/130 [0%]"
+totalScorePElement.innerHTML = "0/130 (0%)"
 
 const totalScoreHandler = (index) => {
   let totalScore = 0;  
@@ -206,50 +133,35 @@ const totalScoreHandler = (index) => {
   let totalScorePercent = parseInt(totalScore/130*100);
   console.log(totalScorePercent)
 
-  totalScorePElement.innerHTML = totalScore+"/130 " + " [" + totalScorePercent + "%]";
+  totalScorePElement.innerHTML = totalScore+"/130 " + " (" + totalScorePercent + "%)";
+  totalScorePElement.value = totalScorePercent;
 
 };
-
 
 // Calculates label font size and layout with responsive functionality
 
 let dataLabels;
-const dataLabelsBig = [
-  "Dish Hold",
-  "Arch Hold",
-  "Tucked V Ups",
-  "Tucked L Hang",
-  "Tucked L Sit",
-  "Push Ups",
-  "Chin Hang",
-  "Single Leg Hold",
-  "Deck Squat",
-  "Wall Handstand",
-  "Headstand",
-  "Pike",
-  "Shoulder Extention",
-];
-const dataLabelsSmall = [
-  "Dish Hold",
-  "Arch Hold",
-  ["Tucked", "V Ups"],
-  ["Tucked", "L Hang"],
-  ["Tucked", "L Sit"],
-  "Push Ups",
-  "Chin Hang",
-  ["Single Leg", "Hold"],
-  "Deck Squat",
-  ["Wall", "Handstand"],
-  "Headstand",
-  "Pike",
-  ["Shoulder", "Extention"],
-];
 
-if (window.innerWidth < 583) {
-  dataLabels = dataLabelsSmall;
-} else {
-  dataLabels = dataLabelsBig;
+const chartLabelHandler = () => {
+  if (window.innerWidth < 583) {
+    if (profile == beginnerProfile1) dataLabels = beginnerProfile1DataLabelsSmall;
+    if (profile == beginnerProfile2) dataLabels = beginnerProfile2DataLabelsSmall;
+    if (profile == intermediateProfile1) dataLabels = intermediateProfile1DataLabelsSmall;
+    if (profile == intermediateProfile2) dataLabels = intermediateProfile2DataLabelsSmall;
+    if (profile == advancedProfile1) dataLabels = advancedProfile1DataLabelsSmall;
+
+  } else {
+    if (profile == beginnerProfile1) dataLabels = beginnerProfile1DataLabelsBig;
+    if (profile == beginnerProfile2) dataLabels = beginnerProfile2DataLabelsBig;
+    if (profile == intermediateProfile1) dataLabels = intermediateProfile1DataLabelsBig;
+    if (profile == intermediateProfile2) dataLabels = intermediateProfile2DataLabelsBig;
+    if (profile == advancedProfile1) dataLabels = advancedProfile1DataLabelsBig;
+
+
+  }
 }
+
+chartLabelHandler()
 
 let graphLabelFontSize = window.innerWidth / 100 + 8;
 
@@ -257,14 +169,14 @@ if (graphLabelFontSize > 16) graphLabelFontSize = 16;
 
 window.addEventListener("resize", () => {
 
+  // console.log('resize')
   graphLabelFontSize = window.innerWidth / 100 + 8;
   if (graphLabelFontSize > 16) graphLabelFontSize = 16;
 
   myChartExercises.options.scale.pointLabels.fontSize = graphLabelFontSize;
   myChartDomain.options.scale.pointLabels.fontSize = graphLabelFontSize;
 
-  if (window.innerWidth < 583) myChartExercises.data.labels = dataLabelsSmall;
-  else myChartExercises.data.labels = dataLabelsBig;
+  if (window.innerWidth < 583) chartLabelHandler()
 
   myChartExercises.update();
   myChartDomain.update();
@@ -280,7 +192,7 @@ window.addEventListener("resize", () => {
     for (let k = 0; k < dateSelect.length; k++) {
       let menuOption = document.createElement("option");
       menuOption.value = j;
-      menuOption.text = webInput[j][1];
+      menuOption.text = `${webInput[j][1]} (${webInput[j][2]}%)`;
       dateSelect[k].add(menuOption);
     }
   }
@@ -303,21 +215,17 @@ const graphChangeHandler = (graphIndex) => {
   let dateIndexNum = dateSelect[graphIndex].value;
 
   myChartExercises.data.datasets[graphIndex].data = webInput[dateIndexNum][0];
-  myChartExercises.data.datasets[graphIndex].label = webInput[dateIndexNum][1];
+  myChartExercises.data.datasets[graphIndex].label = `${webInput[dateIndexNum][1]} (${webInput[dateIndexNum][2]}%)`;
   myChartDomain.data.datasets[graphIndex].data = domainHandler(
     webInput[dateIndexNum][0]
   );
-  myChartDomain.data.datasets[graphIndex].label = webInput[dateIndexNum][1];
+  myChartDomain.data.datasets[graphIndex].label = `${webInput[dateIndexNum][1]} (${webInput[dateIndexNum][2]}%)`;
 
   myChartExercises.update();
   myChartDomain.update();
 };
 
 const deleteLocalStorage = () => {
-  // let deleteIndexNum = dateSelectDelete.value;
-  // localStorage.removeItem(("date"+deleteIndexNum).toString());
-  // localStorage.removeItem(("results"+deleteIndexNum).toString());
-  // localStorage.inputIndex = (Number(localStorage.inputIndex)-1).toString()
   localStorage.clear()
   location.reload()
 }
@@ -352,30 +260,20 @@ submitForm = () => {
     pointsArray[n] = pointsParagraph[n].valueAsNumber
   }
 
-  // input[0] = document.getElementById("dish-hold").value;
-  // input[1] = document.getElementById("arch-hold").value;
-  // input[2] = document.getElementById("tucked-v-ups").value;
-  // input[3] = document.getElementById("tucked-l-hang").value;
-  // input[4] = document.getElementById("tucked-l-sit").value;
-  // input[5] = document.getElementById("push-ups").value;
-  // input[6] = document.getElementById("chin-hang").value;
-  // input[7] = document.getElementById("single-leg-squat-hold").value;
-  // input[8] = document.getElementById("deck-squat").value;
-  // input[9] = document.getElementById("wall-handstand").value;
-  // input[10] = document.getElementById("headstand").value;
-  // input[11] = document.getElementById("pike").value;
-  // input[12] = document.getElementById("shoulder-extention").value;
-
-  // pointsArray = scoreToPointConverter(input)
-
   localStorage.setItem(
     "results" + localStorage.inputIndex,
     JSON.stringify(pointsArray)
   );
   localStorage.setItem("date" + localStorage.inputIndex, inputDate);
 
+  localStorage.setItem("percent" + localStorage.inputIndex, totalScorePElement.value)
+
   localStorage.inputIndex++;
+  
+  location.reload()
+
 };
+
 
 let myChartExercises = new Chart(ctx1, {
   type: "radar",

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+      viewport-fit="cover"
+    />
+    <title>Gymnastics Profile Test</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div id="back-button__container" onclick="location.href='./index.html';" style="cursor: pointer;">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-arrow-left"
+        >
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </div>
+    </header>
+    <main class="main-wrapper">
+      <form class="score-form" onsubmit="submitForm(); return false" action="">
+        <div class="domain-container">
+          <p class="domain-container__title">CORE ENDURANCE</p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <p class="measurement"></p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+        </div>
+        <div class="domain-container" id="domain-container__span-three">
+          <p class="domain-container__title">CORE STRENGTH</p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+        </div>
+        <div class="domain-container">
+          <p class="domain-container__title">ARM STRENGTH</p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+        </div>
+        <div class="domain-container">
+          <p class="domain-container__title">LEG STRENGTH</p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+        </div>
+        <div class="domain-container">
+          <p class="domain-container__title">HANDSTAND</p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+        </div>
+        <div class="domain-container">
+          <p class="domain-container__title">FLEXIBILITY</p>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+          <div class="input-container">
+            <div class="input-container__data-entry"></div>
+          </div>
+        </div>
+        <div class="input-container__final">
+          <div class="input-container-half" id="input-container-half__points">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-plus-square"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <p id="total-score"></p>
+          </div>
+          <input
+            class="input-container-half"
+            id="input-container-half__date"
+            type="date"
+            value="2020-01-01"
+            required="required"
+          />
+          <input
+            class="input-container-half"
+            id="input-container-half__submit"
+            value="submit"
+            type="submit"
+          />
+        </div>
+      </form>
+      <div class="dropdown-wrapper">
+        <div class="dropdown-container">
+          <select
+            name="test-dates"
+            class="test-date-selector"
+            id="test-date-selector__first"
+          >
+            <option value="">Choose a test date</option>
+          </select>
+          <div class="select-icon" id="select-icon__first">
+            <!-- svg calander image by feathericons https://github.com/feathericons -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="dropdown-container">
+          <select
+            name="test-dates"
+            class="test-date-selector"
+            id="test-date-selector__second"
+          >
+            <option>Choose a test date</option>
+            <!-- <option value="0">December 2018</option>
+            <option value="1">March 2019</option>
+            <option value="2">December 2020</option> -->
+          </select>
+          <div class="select-icon" id="select-icon__second">
+            <!-- svg calander image by feathericons https://github.com/feathericons -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="dropdown-container" id="dropdown-container__delete">
+          <select
+            name="test-dates"
+            class="test-date-selector"
+            id="test-date-selector__delete"
+          >
+            <option class="black-font">Delete options:&emsp;</option>
+          </select>
+          <div class="select-icon" id="select-icon__delete">
+            <!-- svg image by feathericons https://github.com/feathericons -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="graph-container__wrapper">
+        <div class="graph-container__exercises">
+          <canvas id="chart__exercises" width="200" height="190"></canvas>
+        </div>
+        <div class="graph-container__domain">
+          <canvas id="chart__domain" width="200" height="190"></canvas>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"></footer>
+    <script src="chart.js/dist/Chart.js"></script>
+    <script src="profiletest.js"></script>
+    <script src="shared.js"></script>
+  </body>
+</html>

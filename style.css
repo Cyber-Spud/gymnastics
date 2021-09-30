@@ -25,6 +25,20 @@ body {
     margin: 0;
 }
 
+#profile-title__container {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+}
+
+.profile-title a {
+    color: rgb(145, 144, 144);
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
 .header {
     position: fixed;
     top: 0;
@@ -188,6 +202,11 @@ input:focus {
     color:rgb(75, 75, 75);
 }
 
+label#small-font {
+    font-size: 0.7rem;
+}
+
+
 .score-form input {
     border: none;
     width: 4.5rem;
@@ -224,6 +243,10 @@ input:focus {
     color:rgb(75, 75, 75);
     bottom: -0.925rem;
     right: 1.2rem;
+}
+
+#back-button__container svg {
+    color: rgb(255, 255, 255);
 }
 
 .input-container__final {
