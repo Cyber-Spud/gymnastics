@@ -489,7 +489,7 @@ const beginnerProfile2 = {
         id: "standing-long-jump",
         text: "Standing Long Jump",
         label: "Standing Long Jump",
-        scoreMeasure: "+100%",
+        scoreMeasure: "cm",
         scoreMax: 895
       },
       {

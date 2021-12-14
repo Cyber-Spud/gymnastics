@@ -231,6 +231,23 @@ label#small-font {
     padding-bottom: 0.6rem;
 }
 
+.select {
+    border: none;
+    width: 4.5rem;
+    height: 3.5rem;
+    margin: 0 0 0.6rem;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Abel', sans-serif;
+    border-radius: 1rem;
+    transition: background-color 0.5s;
+    border: 1px solid rgb(238, 238, 238);
+    color:rgb(60, 60, 60);
+    background-color: rgb(255, 255, 255);
+    padding-left: 0.75rem;
+    padding-bottom: 0.6rem;
+}
+
 .score-form input::placeholder,
 .score-form date::placeholder {
     color:rgb(180, 179, 179);
@@ -370,7 +387,7 @@ label#small-font {
     
 }
 
-select {
+.test-date-selector {
    width: 100%;
    height: 50px;
    font-size: 100%;
@@ -387,6 +404,7 @@ select {
    -webkit-appearance: none;
    -moz-appearance: none;
    transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+ 
 }
 
 #test-date-selector__first {
@@ -542,7 +560,7 @@ select:focus ~ #select-icon__delete svg.icon {
         width: 45%;
     }
 
-    select {
+    .test-date-selector {
         border-radius: 1rem;
     }
 

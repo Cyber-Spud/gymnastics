@@ -24,11 +24,18 @@ else if (url == 'advancedProfile1') profile = advancedProfile1;
 let nullData = new Array(13).fill(0, 0, 13);
 
 // Preset student scores for demo purposes
-let webInput = [];
-webInput[0] = [[3, 4, 5, 3, 2, 5, 4, 2, 5, 3, 2, 3, 4, 5], ["1997-01-02"]];
-webInput[1] = [[4, 5, 6, 7, 6, 5, 4, 3, 6, 4, 5, 6, 7, 7], ["1998-05-15"]];
-webInput[2] = [[8, 8, 7, 7, 6, 6, 9, 9, 9, 10, 10, 10, 10, 5], ["1999-03-22"]];
 
+let webInput = [];
+
+if (profile == beginnerProfile1) {
+  webInput[0] = [[3, 4, 5, 3, 2, 5, 4, 2, 3, 2, 3, 4, 5], ["1997-01-02"]];
+  webInput[1] = [[4, 5, 6, 7, 6, 5, 4, 3, 4, 5, 6, 7, 7], ["1998-05-15"]];
+  webInput[2] = [[8, 8, 7, 7, 6, 6, 9, 9, 10, 10, 10, 10, 5], ["1999-03-22"]];
+} else {
+  webInput[0] = [[3, 4, 5, 3, 2, 5, 4, 2, 5, 3, 2, 3, 4, 5], ["1997-01-02"]];
+  webInput[1] = [[4, 5, 6, 7, 6, 5, 4, 3, 6, 4, 5, 6, 7, 7], ["1998-05-15"]];
+  webInput[2] = [[8, 8, 7, 7, 6, 6, 9, 9, 9, 10, 10, 10, 10, 5], ["1999-03-22"]];
+}
 webInput.forEach(array => {
   // console.log(array[0])
   let percent = parseInt(array[0].reduce((a,b)=>a+b)/130*100)
@@ -164,7 +171,7 @@ const finalDivGenerator = () => {
   class="input-container-half"
   id="input-container-half__date"
   type="date"
-  value="2021-12-12"
+  value="2021-12-14"
   required="required"
   />
   <input
@@ -255,13 +262,99 @@ const chestToBarTgHandler = (input, index) => {
   totalScoreHandler(index);
 }
 
+const shoulderExtentionExerciseGenerator = (input, index) => {
+  console.log('shopulder extention activate')
+  let select = document.createElement('select')
+  
+  select.id = beginnerProfileTestArray[index].id;
+  select.className = "select"
+  select.required = "required";
+  select.innerHTML = `
+  <option value =""></>
+  <option value ="2">Elbows straight, < shoulder width</>
+  <option value ="4">45 deg</>
+  <option value ="6">90 deg</>
+  <option value ="8">135 deg</>
+  <option value ="10">165 deg</>`
+  
+  select.addEventListener('change', () => {
+  
+    let points = Math.floor(select.value)
+    console.log("Select value = " +select.value)
+    pointsParagraph[index].innerHTML = points;
+    pointsParagraph[index].valueAsNumber = points;
+
+    totalScoreHandler(index);  
+  })
+  
+  return select
+}
+
+const pancakeExerciseGenerator = (input, index) => {
+    console.log('delicious pancakes')
+    let select = document.createElement('select')
+    
+    select.id = beginnerProfileTestArray[index].id;
+    select.className = "select"
+    select.required = "required";
+    select.innerHTML = `
+    <option value =""></>
+    <option value ="2">Elbows to floor</>
+    <option value ="4">Head to floor</>
+    <option value ="6">Chin to floor</>
+    <option value ="8">Chest to floor</>
+    <option value ="10">Chest to floor with heels raised 10cm</>`
+    
+    select.addEventListener('change', () => {
+    
+      let points = Math.floor(select.value)
+      console.log("Select value = " +select.value)
+      pointsParagraph[index].innerHTML = points;
+      pointsParagraph[index].valueAsNumber = points;
+  
+      totalScoreHandler(index);  
+    })
+    
+    return select
+}
+
+const bridgeExerciseGenerator = (input, index) => {
+  console.log('big bridge')
+  let select = document.createElement('select')
+  
+  select.id = beginnerProfileTestArray[index].id;
+  select.className = "select"
+  select.required = "required";
+  select.innerHTML = `
+  <option value ="0"></>
+  <option value ="2">Feet flat, shoulder width, head off floor</>
+  <option value ="4">Knees or elbows straight</>
+  <option value ="6">Knees AND elbows straight</>
+  <option value ="8">Shoulders over fingers</>
+  <option value ="10">Shoulders over wrists</>`
+  
+  select.addEventListener('change', () => {
+    
+    let points = Math.floor(select.value)
+    pointsParagraph[index].innerHTML = points;
+    pointsParagraph[index].valueAsNumber = points;
+
+    totalScoreHandler(index);  
+  })
+
+  return select
+}
+
 
 // Adds input container + children to the DOM using data from the selected profile test
 
 const populateInputGenerator = () => {
 
   for (let l = 0; l < inputContainer.length; l++) {
+    let selectNotInput = false
+
     let input = document.createElement('input');
+    let select
     let p = document.createElement('p');
     let label = document.createElement('label');
     let svgDiv = document.createElement('div')
@@ -270,6 +363,21 @@ const populateInputGenerator = () => {
     p.innerHTML = beginnerProfileTestArray[l].scoreMeasure;
     p.className = "score-measure";
     
+    if (beginnerProfileTestArray[l].id == 'pancake') {
+      select = pancakeExerciseGenerator(input, l)
+      selectNotInput = true
+      p.innerHTML = ""  
+      console.log(select)
+    } else if (beginnerProfileTestArray[l].id == 'bridge') {
+      select = bridgeExerciseGenerator(input, l)
+      selectNotInput = true 
+      p.innerHTML = ""   
+    }
+    else if (beginnerProfileTestArray[l].id == 'shoulder-extention') {
+      select = shoulderExtentionExerciseGenerator(input, l)
+      selectNotInput = true 
+      p.innerHTML = ""   
+    } else {
     input.id = beginnerProfileTestArray[l].id;
     input.min = 0
     input.max = beginnerProfileTestArray[l].scoreMax;
@@ -280,6 +388,7 @@ const populateInputGenerator = () => {
     input.inputMode = "numeric"
     input.type = "text";
     input.pattern="[0-9]*"
+    }
 
     if (beginnerProfileTestArray[l].id == 'standing-long-jump') {
       input.addEventListener('change', () => {
@@ -325,7 +434,11 @@ const populateInputGenerator = () => {
 
 
     inputContainer[l].prepend(label);
-    inputContainerDataEntry[l].append(input, p, svgDiv, pPoints);
+    console.log(selectNotInput)
+    if (selectNotInput) inputContainerDataEntry[l].append(select, p, svgDiv, pPoints);
+    else inputContainerDataEntry[l].append(input, p, svgDiv, pPoints);
+
+   
     // inputContainerDataEntry[l].append(p);
     // inputContainerDataEntry[l].append(svgDiv);
     // inputContainerDataEntry[l].append(pPoints);
@@ -472,13 +585,14 @@ const deleteLocalStorage = () => {
 
 const domainHandler = (webInput) => {
   let domain = [];
-  domain[0] = (webInput[0] + webInput[1]) / 2;
-  domain[1] = (webInput[2] + webInput[3] + webInput[4]) / 3;
-  domain[2] = (webInput[5] + webInput[6]) / 2;
-  domain[3] = (webInput[7] + webInput[8]) / 2;
-  domain[4] = (webInput[9] + webInput[10]) / 2;
-  domain[5] = (webInput[11] + webInput[12]) / 2;
-  return domain;
+    domain[0] = (webInput[0] + webInput[1]) / 2;
+    domain[1] = (webInput[2] + webInput[3] + webInput[4]) / 3;
+    domain[2] = (webInput[5] + webInput[6]) / 2;
+    (profile == beginnerProfile1) ? domain[3] = (webInput[7] + webInput[8]) / 2 : domain[3] = (webInput[7] + webInput[8]) / 3;
+    domain[4] = (webInput[9] + webInput[10]) / 2;
+    domain[5] = (webInput[11] + webInput[12]) / 2;
+    console.log(domain)
+    return domain;
 };
 
 // const scoreToPointConverter = (scoreArray) =>{
